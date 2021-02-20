@@ -24,6 +24,11 @@ const reducer = (state = {...login, ...form}, action)=>{
             } else {
                 break
             }
+        case 'LOGOUT':
+                sessionStorage.removeItem('isLogIn')
+
+                return {...state, isLogIn:false}
+            
         case 'EMAILINPUT':
             let isemailValid = action.payload.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
             let emailErrorMessage = isemailValid ? '' : 'Неверный емейл'
