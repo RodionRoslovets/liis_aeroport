@@ -14,7 +14,14 @@ let form = {
     }
 }
 
-const reducer = (state = {...login, ...form}, action)=>{
+let imgs = [
+    "./img/Rectangle 23.png", 
+    "./img/Rectangle 24.png" ,
+    "./img/Rectangle 28.png" 
+]
+
+let flights = []
+const reducer = (state = {...login, ...form, imgs}, action)=>{
     switch(action.type){
         case 'LOGIN':
             if(state.formValid){
