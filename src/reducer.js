@@ -1,3 +1,5 @@
+import {generate} from 'shortid';
+
 let login = {
     isLogIn: sessionStorage.getItem('isLogIn') ? sessionStorage.getItem('isLogIn') : false
 }
@@ -14,6 +16,8 @@ let form = {
     }
 }
 
+let date = new Date()
+
 let imgs = [
     "./img/Rectangle 23.png", 
     "./img/Rectangle 24.png" ,
@@ -21,7 +25,7 @@ let imgs = [
 ]
 
 let flights = []
-const reducer = (state = {...login, ...form, imgs}, action)=>{
+const reducer = (state = {...login, ...form, imgs, date, flights}, action)=>{
     switch(action.type){
         case 'LOGIN':
             if(state.formValid){
@@ -65,6 +69,34 @@ const reducer = (state = {...login, ...form, imgs}, action)=>{
                     password: passErrorMessage
                 },
                 formValid: isPassValid && state.emailValid,
+            }
+        case 'SETFLIGHTS':
+            let newFlights = []
+
+            action.payload.Quotes.forEach((flight)=>{
+                let carriers =[]
+
+                action.payload.Carriers.forEach(carrier=>{
+                    if(flight.OutboundLeg.CarrierIds.indexOf(carrier.CarrierId) !== -1){
+                        carriers.push(carrier.Name)
+                    }
+                })
+
+                carriers = carriers.join(', ')
+
+                let newFlight = {
+                    price: flight.MinPrice,
+                    dateTime: flight.QuoteDateTime,
+                    carriers,
+                    id:generate()
+                }
+
+                newFlights.push(newFlight)
+            })
+
+            return {
+                ...state,
+                flights:newFlights
             }
         default:
             return state

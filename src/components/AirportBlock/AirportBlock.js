@@ -1,8 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import FlightList from '../FlightList/FlightList';
 import ImageCarousel from '../ImageCarousel/imageCarousel';
 
-const AirportBlock = () => {
+const AirportBlock = ({date}) => {
+    let year = date.getFullYear(),
+        month = date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth(),
+        day = date.getDate()
+
     return ( 
         <div>
             <h3>Вылеты 
@@ -10,7 +15,7 @@ const AirportBlock = () => {
                     <path d="M1 1L9.66667 9.66667L1 18.3333" stroke="#A7A7A7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             SVO - JFK</h3>
-            {/* <input type="date" value="2018-07-22"/> */}
+            {/* <input type="date" value={`${year}-${month}-${day}`}/> */}
 
             <ImageCarousel></ImageCarousel>
 
@@ -20,5 +25,11 @@ const AirportBlock = () => {
         </div>
      );
 }
+
+const mapStateToProps = state => {
+    return {
+        date: state.date
+    }
+}
  
-export default AirportBlock;
+export default connect(mapStateToProps, null)(AirportBlock);

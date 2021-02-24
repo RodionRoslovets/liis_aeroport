@@ -1,12 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PlaneIcon from './planeIcon';
 
-const FlightList = ({flights = [1,2,3]}) => {
-    let flightsList = flights.map((flight, index) => {
+const FlightList = ({flights}) => {
+    let flightsList = flights.map(flight => {
         return (
-            <div>
-                flight {index}
-            </div>
+            <li key={flight.id}>
+                <PlaneIcon/>
+                <div>
+                    {flight.dateTime}
+                    <br/>
+                    {flight.carriers}
+                </div>
+                <div>
+                    {flight.price} руб
+                </div>
+            </li>
         )
     })
     return ( 
