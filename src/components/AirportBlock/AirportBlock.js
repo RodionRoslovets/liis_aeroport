@@ -16,6 +16,10 @@ const AirportBlock = ({getNewFlights, favs}) => {
             getNewFlights(target.value)
         }, 1000)
     }
+    let date = new Date(),
+        year = date.getFullYear(),
+        month = date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth(),
+        day = date.getDate()
     return ( 
         <div className={style.airportBlock}>
             <h3>
@@ -25,7 +29,7 @@ const AirportBlock = ({getNewFlights, favs}) => {
                     </svg>
                 SVO - JFK
                 </p>
-                <input type="date" onInput={(e)=>{inputHandler(e)}}/>
+                <input type="date" min={`${year}-${month}-${day}`} onInput={(e)=>{inputHandler(e)}}/>
             </h3>
 
             <ImageCarousel></ImageCarousel>

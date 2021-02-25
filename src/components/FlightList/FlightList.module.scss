@@ -3,5 +3,49 @@
     &__item{
         display: flex;
         justify-content: space-between;
+        padding:20px 0;
+
+        &:not(:last-child){
+            border-bottom:1px solid rgba(135, 135, 135, 0.2);
+        }
+    }
+
+    &__main{
+        display: flex;
+        line-height: 22px;
+
+        & > svg{
+            margin-right: 24px;
+        }
+    }
+
+    &__data{
+        text-align: left;
+
+        & svg{
+            margin:0 12px;
+        }
+    }
+
+    &__date{
+        font-size: 14px;
+        color: #878787;
+    }
+
+    &__priceBlock{
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        align-items:flex-end;
+    }
+
+    &__price{
+        font-size: 17px;
+        color: #424242;
+
+        & span{
+            font-size: 11px;
+            color:#878787;
+        }
     }
 }

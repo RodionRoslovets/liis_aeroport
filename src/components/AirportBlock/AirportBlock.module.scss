@@ -16,6 +16,12 @@
         & svg{
             margin: 0 20px;
         }
+
+        & input[type="date"]{
+            border:none;
+            font-size: 25px;
+            color: #1157A7;
+        }
     }
 
     & .favs{
