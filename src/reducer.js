@@ -21,7 +21,10 @@ let favs = 0
 let imgs = [
     "./img/Rectangle 23.png", 
     "./img/Rectangle 24.png" ,
-    "./img/Rectangle 28.png" 
+    "./img/Rectangle 28.png",
+    "./img/Rectangle 23.png", 
+    "./img/Rectangle 24.png" ,
+    "./img/Rectangle 28.png" ,
 ]
 
 let flights = []

@@ -1,0 +1,7 @@
+.flightList{
+    margin-top: 24px;
+    &__item{
+        display: flex;
+        justify-content: space-between;
+    }
+}

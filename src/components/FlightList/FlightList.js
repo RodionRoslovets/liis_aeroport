@@ -2,10 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PlaneIcon from './planeIcon';
 import * as actions from '../../actions'
+import style from './FlightList.module.scss'
 
 const FlightList = ({flights, addToFavs, removeFromFavs}) => {
     let months = ['January', 'Febriary', 'March', 'April', 'May', 'June', 'July', 'August', 'Septemer', 'October', 'November', 'December']
-
+    
     function checkFavs(e){
         if(e.target.classList.contains('in-favs')){
             e.target.classList.remove('in-favs')
@@ -15,13 +16,14 @@ const FlightList = ({flights, addToFavs, removeFromFavs}) => {
             addToFavs()
         }
     }
+
     let flightsList = flights.map(flight => {
         let dateObj = new Date(flight.dateTime)
 
         let date = `${dateObj.getDate()} ${months[dateObj.getMonth()]}`,
             time = `${dateObj.getHours() < 10 ? '0' + dateObj.getHours() : dateObj.getHours()}:${dateObj.getMinutes() < 10 ? '0' + dateObj.getMinutes() : dateObj.getMinutes()}`
         return (
-            <li key={flight.id}>
+            <li className={style.flightList__item} key={flight.id}>
                 <PlaneIcon/>
                 <div>
                     <p>Moscow (SVO)
@@ -52,7 +54,7 @@ const FlightList = ({flights, addToFavs, removeFromFavs}) => {
     })
 
     return ( 
-        <ul>
+        <ul className={style.flightList} >
             {flightsList}
         </ul>
      );

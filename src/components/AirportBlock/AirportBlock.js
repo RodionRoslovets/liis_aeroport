@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import FlightList from '../FlightList/FlightList';
 import ImageCarousel from '../ImageCarousel/imageCarousel';
 import * as actions from '../../actions'
+import style from './AirportBlock.module.scss'
 
 const AirportBlock = ({getNewFlights, favs}) => {
     function inputHandler(e){
@@ -16,17 +17,20 @@ const AirportBlock = ({getNewFlights, favs}) => {
         }, 1000)
     }
     return ( 
-        <div>
-            <h3>Вылеты 
-                <svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 1L9.66667 9.66667L1 18.3333" stroke="#A7A7A7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-            SVO - JFK</h3>
-            <input type="date" onInput={(e)=>{inputHandler(e)}}/>
+        <div className={style.airportBlock}>
+            <h3>
+                <p>Вылеты 
+                    <svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L9.66667 9.66667L1 18.3333" stroke="#A7A7A7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                SVO - JFK
+                </p>
+                <input type="date" onInput={(e)=>{inputHandler(e)}}/>
+            </h3>
 
             <ImageCarousel></ImageCarousel>
 
-            <div>Добавлено в Избранное: {favs} рейсов</div>
+            <div className={style.favs}>Добавлено в Избранное: <span>{favs}</span> рейсов</div>
 
             <FlightList></FlightList>
         </div>
