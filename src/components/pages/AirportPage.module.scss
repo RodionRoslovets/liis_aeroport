@@ -6,6 +6,9 @@
     font-family:'Open Sans', sans-serif;
     color:#424242;
     height: 100vh;
+    background:url('../../img/Rectangle_2.jpg') center center no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(20px);
 }
 
 .logoutButton{
