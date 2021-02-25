@@ -16,7 +16,7 @@ let form = {
     }
 }
 
-let date = new Date()
+let favs = 0
 
 let imgs = [
     "./img/Rectangle 23.png", 
@@ -25,7 +25,7 @@ let imgs = [
 ]
 
 let flights = []
-const reducer = (state = {...login, ...form, imgs, date, flights}, action)=>{
+const reducer = (state = {...login, ...form, imgs, flights, favs}, action)=>{
     switch(action.type){
         case 'LOGIN':
             if(state.formValid){
@@ -86,8 +86,9 @@ const reducer = (state = {...login, ...form, imgs, date, flights}, action)=>{
 
                 let newFlight = {
                     price: flight.MinPrice,
-                    dateTime: flight.QuoteDateTime,
+                    dateTime: flight.OutboundLeg.DepartureDate,
                     carriers,
+                    currency: action.payload.Currencies[0].Symbol,
                     id:generate()
                 }
 
@@ -97,6 +98,19 @@ const reducer = (state = {...login, ...form, imgs, date, flights}, action)=>{
             return {
                 ...state,
                 flights:newFlights
+            }
+        case 'GETNEWFLIGHTS':
+            return state
+
+        case 'ADDTOFAVS':
+            return {
+                ...state,
+                favs: state.favs + 1
+            }
+        case 'REMOVEFROMFAVS':
+            return {
+                ...state,
+                favs: state.favs - 1
             }
         default:
             return state

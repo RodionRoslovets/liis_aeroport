@@ -1,7 +1,10 @@
-import { put, takeEvery } from 'redux-saga/effects'
+import { put, takeEvery, all } from 'redux-saga/effects'
 
-async function getFlights() {
-    let result = await fetch("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/RU/RUB/ru-RU/SVO-sky/JFK-sky/2021-03-28", {
+let date = new Date()
+let today = `${date.getFullYear()}-${date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}-${date.getDate()}`
+
+async function getFlights(date = today) {
+    let result = await fetch(`https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/RU/RUB/ru-RU/SVO-sky/JFK-sky/${date}`, {
         "method": "GET",
         "headers": {
             "x-rapidapi-key": "981358e5a7msha32e36a7f3d076bp1bf20ajsn8d02c8bd457a",
@@ -15,10 +18,24 @@ async function getFlights() {
     throw new Error('Request is failed')
 }
 
-export function* helloSaga() {
-    let ccc = yield getFlights()
+function* getNewFlights(action){
+    yield firstSaga(action.payload)
+}
 
-    console.log(ccc)
+function* getAsyncFlights(){
+    yield takeEvery('GETNEWFLIGHTS', getNewFlights)
+}
+
+
+function* firstSaga(date = today) {
+    let ccc = yield getFlights(date)
 
     yield put({ type: 'SETFLIGHTS', payload:ccc })
+}
+
+export function* root(){
+    yield all([
+        firstSaga(),
+        getAsyncFlights()
+    ])
 }

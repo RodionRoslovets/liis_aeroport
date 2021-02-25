@@ -2,12 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import FlightList from '../FlightList/FlightList';
 import ImageCarousel from '../ImageCarousel/imageCarousel';
+import * as actions from '../../actions'
 
-const AirportBlock = ({date}) => {
-    let year = date.getFullYear(),
-        month = date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth(),
-        day = date.getDate()
+const AirportBlock = ({getNewFlights, favs}) => {
+    function inputHandler(e){
+        let target = e.target
+        if(target.timer){
+            clearTimeout(target.timer)
+        }
 
+        target.timer = setTimeout(()=>{
+            getNewFlights(target.value)
+        }, 1000)
+    }
     return ( 
         <div>
             <h3>Вылеты 
@@ -15,21 +22,19 @@ const AirportBlock = ({date}) => {
                     <path d="M1 1L9.66667 9.66667L1 18.3333" stroke="#A7A7A7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             SVO - JFK</h3>
-            {/* <input type="date" value={`${year}-${month}-${day}`}/> */}
+            <input type="date" onInput={(e)=>{inputHandler(e)}}/>
 
             <ImageCarousel></ImageCarousel>
 
-            <div>Добавлено в Избранное: рейсов</div>
+            <div>Добавлено в Избранное: {favs} рейсов</div>
 
             <FlightList></FlightList>
         </div>
      );
 }
 
-const mapStateToProps = state => {
-    return {
-        date: state.date
-    }
-}
+const mapStateToProps = state => ({
+    favs: state.favs
+})
  
-export default connect(mapStateToProps, null)(AirportBlock);
+export default connect(mapStateToProps, actions)(AirportBlock);
