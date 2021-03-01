@@ -19,7 +19,7 @@ const AirportBlock = ({getNewFlights, favs}) => {
     let date = new Date(),
         year = date.getFullYear(),
         month = date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth(),
-        day = date.getDate()
+        day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
     return ( 
         <div className={style.airportBlock}>
             <h3>
